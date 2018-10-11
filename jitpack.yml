@@ -1,0 +1,4 @@
+# https://github.com/jitpack/jitpack.io/blob/master/BUILDING.md
+
+jdk:
+- openjdk10
