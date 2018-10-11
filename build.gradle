@@ -3,12 +3,11 @@ buildscript {
 }
 
 plugins {
-    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+    id 'java'
     id 'java-library'
     id 'maven-publish'
+    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
 }
-
-apply plugin: 'java'
 
 group = 'com.bureauworks'
 version = '0.0.1'
