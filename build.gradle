@@ -1,0 +1,58 @@
+buildscript {
+    repositories { mavenCentral() }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+    id 'java-library'
+    id 'maven-publish'
+}
+
+apply plugin: 'java'
+
+group = 'com.bureauworks'
+version = '0.0.1'
+sourceCompatibility = 10
+
+ext {
+    springBootVersion = '2.0.5.RELEASE'
+    springCloudVersion = 'Finchley.SR1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-config-server'
+    implementation 'com.amazonaws:aws-java-sdk-kms'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
